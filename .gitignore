@@ -1,6 +1,9 @@
 #PyCharm stuff:
 .idea/
 
+#Reahl
+etc/
+
 # Active State
 .komodotools/
 *.komodoproject

@@ -1,0 +1,2 @@
+  unit setup -- -q pytest --addopts '-s --pyargs tests'
+  demosetup setup -- -q pytest --addopts '-s -o python_functions=demo_setup --pyargs tests'
