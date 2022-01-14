@@ -17,6 +17,7 @@
       Programming Language :: Python :: 3.9
       Programming Language :: Python :: 3.10
    </info>
+   <info name="url">https://github.com/hendrikdutoit/ProdigyHelmsman</info>
 </metadata>
  <version number="0.0">
   <deps purpose="run">
@@ -48,7 +49,7 @@
    <class locator="prodigyhelmsman:Country"/>
  </persisted>
  <distpackage type="wheel">
-   <packageindex repository="pypi">
+   <packageindex repository="pypi"/>
  </distpackage>
 
 </project>
