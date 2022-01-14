@@ -5,7 +5,7 @@ from reahl.tofu.pytestsupport import with_fixtures
 from reahl.browsertools.browsertools import Browser
 from reahl.sqlalchemysupport import Session
 from reahl.domain.systemaccountmodel import EmailAndPasswordSystemAccount
-from prodigyhelmsman import APIUI, Country, Currency, CountryCurrency
+from prodigyhelmsman.prodigyhelmsman import APIUI, Country, Currency, CountryCurrency
 from reahl.sqlalchemysupport_dev.fixtures import SqlAlchemyFixture
 from reahl.web_dev.fixtures import WebFixture
 

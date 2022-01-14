@@ -37,9 +37,10 @@
 .. image:: https://img.shields.io/pypi/v/ProdigyHelmsman
     :alt: PyPi
 
-Project Short Description (default ini)
+Demo REST API to do enquiries of the details of a country.
 
-    Project long description or extended summary goes in here (default ini)
+    The strange name comes from the name of an entity and helmsman whois also a navigator hence looking for details of a country. TThe strange name also contribute to finding a unique name on yPI and at the same time not squatting usefull names on the public domain.
+
 
 =======
 Testing
@@ -88,4 +89,3 @@ Releases are published automatically when a tag is pushed to GitHub.
     
     # Push
     git push upstream --tags
-

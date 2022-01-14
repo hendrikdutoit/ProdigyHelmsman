@@ -1,5 +1,11 @@
-import json
+'''Demo REST API to do enquiries of the details of a country.
 
+The strange name comes from the name of an entity and  helmsman whois also
+a navigator hence looking for details of a country.  TThe strange name  also
+contribute to finding a unique name on yPI and at the same time not squatting
+usefull names on the public domain.
+'''
+import json
 from webob.exc import HTTPForbidden
 
 from reahl.web.fw import UserInterface, CheckedRemoteMethod, JsonResult
