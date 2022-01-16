@@ -1,6 +1,4 @@
 import json
-from pathlib import Path
-from beetools import Archiver
 
 from reahl.tofu import Fixture, uses
 from reahl.tofu.pytestsupport import with_fixtures
@@ -10,13 +8,6 @@ from reahl.domain.systemaccountmodel import EmailAndPasswordSystemAccount
 from prodigyhelmsman.prodigyhelmsman import APIUI, Country, Currency, CountryCurrency
 from reahl.sqlalchemysupport_dev.fixtures import SqlAlchemyFixture
 from reahl.web_dev.fixtures import WebFixture
-
-
-_DESC = __doc__.split("\n")[0]
-_PATH = Path(__file__)
-_NAME = _PATH.stem
-
-b_tls = Archiver(_DESC, _PATH)
 
 
 @uses(web_fixture=WebFixture)
@@ -47,6 +38,7 @@ class PopulateCountry(Fixture):
         ('LSO', 'LS', 'Lesotho', True),
         ('SWZ', 'SZ', 'Eswatini', True),
     ]
+    # INSERT INTO country (cca3, cca2, name_common, active) VALUES('ZAF', 'ZA', 'South Africa', True), ('USA', 'US', 'United States of America', True), ('GBR', 'GB', 'United Kingdom', True), ('DER', 'DE', 'Federal Republic of Germany', True), ('AUS', 'AU', 'Australia', True), ('LSO', 'LS', 'Lesotho', True), ('SWZ', 'SZ', 'Eswatini', True);
     pass
 
     def add_test_data(self):
@@ -73,6 +65,7 @@ class PopulateCurrency(Fixture):
         ('LSL', 'Lesotho loti', 'l'),
         ('SZL', 'Swazi lilangeni', 'L'),
     ]
+    # INSERT INTO currency (curr_iso, nam, symbol) VALUES ('ZAR', 'South African rand', 'R'), ('USD', 'United States dollar', '$'), ('GBP', 'Pound sterling', '£'), ('EUR', 'Euro', '€'), ('AUD', 'Australian dollar', '$'), ('LSL', 'Lesotho loti', 'l'), ('SZL', 'Swazi lilangeni', 'L');
 
     def add_test_data(self):
         for currency in self.test_data:
@@ -99,6 +92,7 @@ class PopulateCountryCurrency(Fixture):
         ('SZ', 'ZAR'),
         ('SZ', 'SZL'),
     ]
+    # INSERT INTO country_currency (country_id, currency_id) VALUES ((SELECT id FROM country WHERE cca2="ZA"), (SELECT id FROM currency WHERE curr_iso="ZAR")), ((SELECT id FROM country WHERE cca2="US"), (SELECT id FROM currency WHERE curr_iso="USD")), ((SELECT id FROM country WHERE cca2="GB"), (SELECT id FROM currency WHERE curr_iso="GBP")),((SELECT id FROM country WHERE cca2="DE"), (SELECT id FROM currency WHERE curr_iso="EUR")), ((SELECT id FROM country WHERE cca2="AU"), (SELECT id FROM currency WHERE curr_iso="AUD")), ((SELECT id FROM country WHERE cca2="LS"), (SELECT id FROM currency WHERE curr_iso="ZAR")), ((SELECT id FROM country WHERE cca2="LS"), (SELECT id FROM currency WHERE curr_iso="LSL")), ((SELECT id FROM country WHERE cca2="SZ"), (SELECT id FROM currency WHERE curr_iso="ZAR")), ((SELECT id FROM country WHERE cca2="SZ"), (SELECT id FROM currency WHERE curr_iso="SZL"));
 
     def add_test_data(self):
         for cntry, curr in self.test_data:
@@ -247,6 +241,3 @@ def test_logging_in(web_fixture, login_fixture):
     assert browser.last_response.status == '200 OK'
     result = json.loads(browser.last_response.body)
     assert result is True
-
-
-del b_tls
