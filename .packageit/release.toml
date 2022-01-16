@@ -1,3 +1,8 @@
+[0.0.2]
+Title = "Version 0.0.2"
+Description = [ "Version 0.0.3", "[Enhancement]: Round 2 fixing up.",]
+GitHubIssues = [ 19,]
+
 [0.0.1]
 Title = "Version 0.0.1"
 Description = [ "Start teh project.", "- Fix up the template project.",]
