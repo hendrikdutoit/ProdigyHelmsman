@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+from beetools import Archiver
 
 from reahl.tofu import Fixture, uses
 from reahl.tofu.pytestsupport import with_fixtures
@@ -8,6 +10,13 @@ from reahl.domain.systemaccountmodel import EmailAndPasswordSystemAccount
 from prodigyhelmsman.prodigyhelmsman import APIUI, Country, Currency, CountryCurrency
 from reahl.sqlalchemysupport_dev.fixtures import SqlAlchemyFixture
 from reahl.web_dev.fixtures import WebFixture
+
+
+_DESC = __doc__.split("\n")[0]
+_PATH = Path(__file__)
+_NAME = _PATH.stem
+
+b_tls = Archiver(_DESC, _PATH)
 
 
 @uses(web_fixture=WebFixture)
@@ -238,3 +247,6 @@ def test_logging_in(web_fixture, login_fixture):
     assert browser.last_response.status == '200 OK'
     result = json.loads(browser.last_response.body)
     assert result is True
+
+
+del b_tls

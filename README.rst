@@ -14,7 +14,7 @@
     :alt: License
 
 .. image:: https://img.shields.io/github/issues-raw/hendrikdutoit/ProdigyHelmsman
-    :alt: GitHub issues
+    :alt: GitHub Issues
 
 .. image:: https://img.shields.io/pypi/dm/ProdigyHelmsman
     :alt: PyPI - Downloads
@@ -22,17 +22,9 @@
 .. image:: https://img.shields.io/github/search/hendrikdutoit/ProdigyHelmsman/GitHub
     :alt: GitHub Searches
 
-.. image:: https://img.shields.io/codecov/c/gh/hendrikdutoit/ProdigyHelmsman
-    :alt: CodeCov
-    :target: https://app.codecov.io/gh/hendrikdutoit/ProdigyHelmsman
-
 .. image:: https://img.shields.io/github/workflow/status/hendrikdutoit/ProdigyHelmsman/Pre-Commit
     :alt: GitHub Actions - Pre-Commit
     :target: https://github.com/hendrikdutoit/ProdigyHelmsman/actions/workflows/pre-commit.yaml
-
-.. image:: https://img.shields.io/github/workflow/status/hendrikdutoit/ProdigyHelmsman/CI
-    :alt: GitHub Actions - CI
-    :target: https://github.com/hendrikdutoit/ProdigyHelmsman/actions/workflows/ci.yaml
 
 .. image:: https://img.shields.io/pypi/v/ProdigyHelmsman
     :alt: PyPi
@@ -40,7 +32,6 @@
 Demo REST API to do enquiries of the details of a country.
 
     The strange name comes from the name of an entity and helmsman whois also a navigator hence looking for details of a country. TThe strange name also contribute to finding a unique name on yPI and at the same time not squatting usefull names on the public domain.
-
 
 =======
 Testing
