@@ -1,9 +1,10 @@
 <project type="egg">
  <metadata type="reahlproject">
-   <info name="version">0.0.1</info>
+   <info name="version">0.0.5</info>
    <info name="description">Demo REST API to do enquiries of the details of a country</info>
    <info name="long_description">
-     The strange name comes from the name of an entity and  helmsman whois also a navigator hence looking for details of a country.  TThe strange name  also contribute to finding a unique name on yPI and at the same time not squatting usefull names on the public domain.
+     The strange name comes from the name of an entity and  helmsman who is also a navigator hence looking for details of a country.  The strange name  also contribute to finding a unique name on PyPI and at the same time not squatting useful names on the public domain.
+     See ReadMe on GitHub for installation instructions.
    </info>
    <info name="maintainer_name">Hendrik du Toit</info>
    <info name="maintainer_email">hendrik@brightedge.co.za</info>
@@ -17,7 +18,7 @@
       Programming Language :: Python :: 3.9
       Programming Language :: Python :: 3.10
    </info>
-   <info name="url">https://github.com/hendrikdutoit/ProdigyHelmsman</info>
+   <info name="url">https://github.com/hendrikdutoit/ProdigyHelmsman/blob/master/README.rst</info>
 </metadata>
  <version number="0.0">
   <deps purpose="run">

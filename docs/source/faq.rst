@@ -4,20 +4,16 @@
 ===
 FAQ
 ===
-Here's a list of commonly asked questions. If you can't find what you're looking for here you may
-want to consider asking a question on `StackOverflow <https://stackoverflow.com/questions/tagged/python>`_.
+Here's a list of commonly asked questions.
 
----------------------------------------
-**Insert your FAQ #1 here.**
----------------------------------------
+What is te url for the local host?
+----------------------------------
 
-This is the answer to the above FAQ.  The answer to the above FAQ 
-can can span multiple lines.
+http://localhost:8000
 :raw-html:`<br />`
 :raw-html:`<br />`
 
-----------------------------
-**Insert your FAQ #2 here.**
-----------------------------
+What is the urls for the production site?
+-----------------------------------------
 
-This is a template and you can add as many FAQ's as you like.
+www.prodigyhelmsman.co.za

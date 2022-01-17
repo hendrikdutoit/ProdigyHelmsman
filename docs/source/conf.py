@@ -1,17 +1,17 @@
 import sys
 
-sys.path.insert(0, 'D:\\Dropbox\\Projects\\ProdigyHelmsman\\prodigyhelmsman')
+sys.path.insert(0, 'D:\\Dropbox\\Projects\\ProdigyHelmsman')
 project = 'ProdigyHelmsman'
 copyright = '2022, Hendrik du Toit'
 author = 'Hendrik du Toit'
 version = '0'
-release = '0.0.1'
+release = '0.0.5'
 html_context = {
     "display_github": True,  # Integrate GitHub
     "github_user": "hendrikdutoit",  # Username
     "github_repo": "ProdigyHelmsman",  # Repo name
     "github_version": "master",  # Version
-    "conf_py_path": "/source/",  # Path in the checkout to the docs root
+    "conf_py_path": "source/",  # Path in the checkout to the docs root
 }
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.autosummary']
 templates_path = ['_templates']

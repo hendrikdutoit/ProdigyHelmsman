@@ -4,24 +4,6 @@ The strange name comes from the name of an entity and  helmsman whois also
 a navigator hence looking for details of a country.  The strange name  also
 contribute to finding a unique name on yPI and at the same time not squatting
 useful names on the public domain.
-
-Testing the application:
-
-1. Run it locally
-2. Connect to the SPI server www.prodigyhelmsman.co.za
-
-Run  it locally
-Setup an development environemtn
-1. Download from Git
-2. InstallReahl
-    - Configure the database
-3. Start the server
-    - RUn the unit tests or
-    - Run enquire_country
-Development
-
-
-
 '''
 import json
 from webob.exc import HTTPForbidden

@@ -10,7 +10,7 @@ To do any development, you must install Reahl in a virtual environment.  For det
 
 1. Prerequisites (for these instructions)
 
-    - Linux 20.4 (debian)
+    - Linux 20.4 (Ubuntu)
     - Python 3.8
     - Git 2.25.1
 
