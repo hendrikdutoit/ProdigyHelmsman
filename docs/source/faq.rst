@@ -6,14 +6,16 @@ FAQ
 ===
 Here's a list of commonly asked questions.
 
-What is te url for the local host?
-----------------------------------
+What is the url for the local host?
+-----------------------------------
 
-http://localhost:8000
-:raw-html:`<br />`
-:raw-html:`<br />`
+`localhost`_
+
+.. _localhost: http://www.prodigyhelmsman.co.za
 
 What is the urls for the production site?
 -----------------------------------------
 
-www.prodigyhelmsman.co.za
+`www.prodigyhelmsman.co.za`_
+
+.. _www.prodigyhelmsman.co.za: http://www.prodigyhelmsman.co.za/api

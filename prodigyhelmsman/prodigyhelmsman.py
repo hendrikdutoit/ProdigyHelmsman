@@ -24,6 +24,13 @@ from sqlalchemy.orm import relationship
 
 
 class CountryCurrency(Base):
+    """
+    Define the many-to-many relationship between Country and Currency.
+
+    :param country_id: country.id from country table
+    :param currency_id: curency.id from currency table
+    """
+
     __tablename__ = 'country_currency'
 
     country_id = Column(Integer, ForeignKey('country.id'), primary_key=True)
@@ -31,6 +38,16 @@ class CountryCurrency(Base):
 
 
 class Country(Base):
+    """
+    Country table definition.
+
+    :param cca2: Country code alpha of length 2 (unique)
+    :param cca3: Country code alpha of length 3 (unique)
+    :param name_common: Country common name
+    :param active: Soft delete of the country. True wil remove the country
+     form displasy, but not physically delete the record.
+    """
+
     __tablename__ = 'country'
 
     id = Column(Integer, primary_key=True)
@@ -61,6 +78,14 @@ class Country(Base):
 
 
 class Currency(Base):
+    """
+    Currency table definition.
+
+    :param curr_iso: Three digit iso currency code.
+    :param name: Currency description
+    :param symbol: Currency symbol
+    """
+
     __tablename__ = 'currency'
 
     id = Column(Integer, primary_key=True)
@@ -85,10 +110,26 @@ class Currency(Base):
 
 
 class JsonField(Field):
+    """
+    Process the inputs and outputs to the API from JSON to Python dict and vica-versa.
+    """
+
     def parse_input(self, unparsed_input):
+        """
+        Parse input from the caller
+
+        :param unparsed_input: JSON string received from sender
+        :return: str with the contents.
+        """
         return json.loads(unparsed_input if unparsed_input != '' else 'null')
 
     def unparse_input(self, parsed_value):
+        """
+        Un-parse input from the caller.
+
+        :param parsed_input: JSON string received from sender
+        :return: str with the contents.
+        """
         return json.dumps(parsed_value)
 
 
@@ -101,6 +142,8 @@ class CheckedRemoteMethod2(CheckedRemoteMethod):
 
 
 class APIPage(HTML5Page):
+    """ """
+
     def __init__(self, view):
         super().__init__(view)
         methods = [
@@ -112,6 +155,16 @@ class APIPage(HTML5Page):
             #         name_common = Field(),
             #         curr_iso = Field()
             # ),
+            CheckedRemoteMethod2(
+                view,
+                'add_country',
+                self.add_country,
+                JsonResult(JsonField()),
+                disable_csrf_check=True,
+                cca2=Field(),
+                cca3=Field(),
+                name_common=Field(),
+            ),
             CheckedRemoteMethod2(
                 view,
                 'delete_country',
@@ -161,19 +214,48 @@ class APIPage(HTML5Page):
                 )
             )
 
+    def add_country(self, cca2=None, cca3=None, name_common=None):
+        """
+        Add country to database.  If the country already exists by previous
+        soft delete, it will set the "active" flag and update teh rest of
+        the attributes.
+
+        :param cca2: 2 digit alpha for the respective country being added.
+        :param cca3: 3 digit alpha for the respective country being added.
+        :param name_common: Common name of country.
+
+        :return: {}
+        """
+        # print(cca2, cca3, name_common)
+        # import pdb; pdb.set_trace()
+        if cca2 and cca3 and name_common:
+            country = Session.query(Country).filter_by(cca2=cca2).first()
+            if country:
+                country.active = True
+            else:
+                Session.add(
+                    Country(cca2=cca2, cca3=cca3, name_common=name_common, active=True)
+                )
+        return {}
+
     def can_access_api(self):
+        """
+        Determine if the caller can access (authenticated) API.
+
+        :return: True or False
+        """
         login_session = LoginSession.for_current_session()
         return login_session.is_logged_in()
 
-    # def create_country(self, cca3 = None, cca2 = None, name = None):
-    #     Session.add(Country(
-    #             cca3 = cca3,
-    #             cca2 = cca2,
-    #             name_common = name,
-    #     ))
-    #     return True
-
     def delete_country(self, cca=None):
+        """
+        Soft delete from the country record from database.  The "active"
+        flag of the table will be set false.
+
+        :param cca: 2 or 3 digit alpha for the respective country being deleted.
+
+        :return: {}
+        """
         if cca:
             country = None
             if len(cca) == 2:
@@ -185,6 +267,12 @@ class APIPage(HTML5Page):
         return {}
 
     def find_country(self, cca=None):
+        """
+        Find a country in the country table with either the 2 or 3 digit alpha code.
+
+        :param cca: 2 or 3 digit alpha for the respective country being enquired on.
+        :return: cca3, cca2, name_common
+        """
         # import pdb;pdb.set_trace()
         if len(cca) == 2:
             country = (
@@ -209,6 +297,14 @@ class APIPage(HTML5Page):
         return []
 
     def list_countries(self, curr_iso=None):
+        """
+        Find the details of all the countries.  If the curr_iso parameter
+        is set, it will find the countries with that specific currency.
+
+        :param curr_iso: Currency tto filter on.
+
+        :return: cca, cca2, name_common, curr_iso
+        """
         countries_data = []
         if curr_iso:
             rows = (
@@ -245,8 +341,16 @@ class APIPage(HTML5Page):
         return countries_data
 
     def log_in(self, user_name=None, password=None):
+        """
+        AUthenticate the session.
+
+        :param user_name:  Existing user_name.
+        :param password: Pasword of the user.
+
+        :return: True or False
+        """
         AccountManagementInterface.for_current_session()
-        print(f'logging in with {user_name}[{password}]')
+        # print(f'logging in with {user_name}[{password}]')
         EmailAndPasswordSystemAccount.log_in(user_name, password, False)
         return self.can_access_api()
 

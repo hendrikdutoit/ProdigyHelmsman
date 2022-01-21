@@ -127,11 +127,10 @@ def demo_setup(
     country_currency_fixture.add_test_data()
 
 
-@with_fixtures(WebFixture, LoginFixture)
-def test_delete_country(web_fixture, login_fixture):
+@with_fixtures(LoginFixture)
+def test_delete_country_none(login_fixture):
 
     browser = login_fixture.browser
-
     Session.add(Country(cca3='LSO', cca2='LS', name_common='Lesotho', active=True))
     Session.add(Country(cca3='ZAF', cca2='ZA', name_common='South Africa', active=True))
     browser.post('/api/_delete_country_method', {'cca': ''})
@@ -143,29 +142,83 @@ def test_delete_country(web_fixture, login_fixture):
     expected = ['LS', 'ZA']
     assert actual == expected
 
+
+@with_fixtures(LoginFixture)
+def test_delete_country_non_existing(login_fixture):
+
+    browser = login_fixture.browser
+    Session.add(Country(cca3='LSO', cca2='LS', name_common='Lesotho', active=True))
+    Session.add(Country(cca3='ZAF', cca2='ZA', name_common='South Africa', active=True))
     browser.post('/api/_delete_country_method', {'cca': 'ZZZ'})
     result = json.loads(browser.last_response.body)
     assert browser.last_response.status == '200 OK'
     assert result == {}
-    assert browser.last_response.status == '200 OK'
     rec = Session.query(Country).order_by(Country.name_common).all()
     actual = [i.cca2 for i in rec if i.active]
     expected = ['LS', 'ZA']
     assert actual == expected
 
+
+@with_fixtures(LoginFixture)
+def test_delete_country_existing(login_fixture):
+    browser = login_fixture.browser
+    Session.add(Country(cca3='LSO', cca2='LS', name_common='Lesotho', active=True))
+    Session.add(Country(cca3='ZAF', cca2='ZA', name_common='South Africa', active=True))
     browser.post('/api/_delete_country_method', {'cca': 'ZAF'})
     result = json.loads(browser.last_response.body)
     assert browser.last_response.status == '200 OK'
     assert result == {}
-    assert browser.last_response.status == '200 OK'
     rec = Session.query(Country).order_by(Country.name_common).all()
     actual = [i.cca2 for i in rec if i.active]
     expected = ['LS']
     assert actual == expected
 
 
-@with_fixtures(WebFixture, LoginFixture, PopulateCountry)
-def test_find_country(web_fixture, login_fixture, country_fixture):
+@with_fixtures(LoginFixture)
+def test_add_country_existing(login_fixture):
+    browser = login_fixture.browser
+    Session.add(Country(cca3='LSO', cca2='LS', name_common='Lesotho', active=True))
+    Session.add(
+        Country(cca3='ZAF', cca2='ZA', name_common='South Africa', active=False)
+    )
+    browser.post(
+        '/api/_add_country_method',
+        {'cca2': 'ZA', 'cca3': 'ZAF', 'name_common': 'South Africa'},
+    )
+    result = json.loads(browser.last_response.body)
+    assert browser.last_response.status == '200 OK'
+    assert result == {}
+    rec = (
+        Session.query(Country)
+        .filter(Country.active == True)
+        .order_by(Country.name_common)
+        .all()
+    )
+    actual = [i.cca2 for i in rec if i.active]
+    expected = ['LS', 'ZA']
+    assert actual == expected
+
+
+@with_fixtures(LoginFixture)
+def test_add_country_new(login_fixture):
+    browser = login_fixture.browser
+    Session.add(Country(cca3='LSO', cca2='LS', name_common='Lesotho', active=True))
+    Session.add(Country(cca3='ZAF', cca2='ZA', name_common='South Africa', active=True))
+    browser.post(
+        '/api/_add_country_method',
+        {'cca2': 'RU', 'cca3': 'RUS', 'name_common': 'Russia'},
+    )
+    result = json.loads(browser.last_response.body)
+    assert browser.last_response.status == '200 OK'
+    assert result == {}
+    rec = Session.query(Country).order_by(Country.name_common).all()
+    actual = [i.cca2 for i in rec if i.active]
+    expected = ['LS', 'RU', 'ZA']
+    assert actual == expected
+
+
+@with_fixtures(LoginFixture, PopulateCountry)
+def test_find_country(login_fixture, country_fixture):
 
     browser = login_fixture.browser
 
@@ -183,8 +236,8 @@ def test_find_country(web_fixture, login_fixture, country_fixture):
     assert result == []
 
 
-@with_fixtures(WebFixture, LoginFixture)
-def test_list_countries(web_fixture, login_fixture):
+@with_fixtures(LoginFixture)
+def test_list_countries(login_fixture):
 
     browser = login_fixture.browser
 
@@ -227,8 +280,8 @@ def test_list_countries(web_fixture, login_fixture):
     assert result == []
 
 
-@with_fixtures(WebFixture, LoginFixture)
-def test_logging_in(web_fixture, login_fixture):
+@with_fixtures(LoginFixture)
+def test_logging_in(login_fixture):
     browser = login_fixture.browser
 
     browser.open('/api')
