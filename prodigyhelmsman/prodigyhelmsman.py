@@ -5,6 +5,7 @@ a navigator hence looking for details of a country.  The strange name  also
 contribute to finding a unique name on yPI and at the same time not squatting
 useful names on the public domain.
 '''
+
 import json
 from webob.exc import HTTPForbidden
 
